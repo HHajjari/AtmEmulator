@@ -1,0 +1,44 @@
+version: "3"
+services:
+    atm-server:
+        container_name: atm-server
+        build:
+            context: atm-server
+            dockerfile: Dockerfile
+        image: atm-server:latest
+        ports:
+            - 8081:8081
+        depends_on:
+            - bank-server
+    bank-server:
+        container_name: bank-server
+        build:
+            context: bank-server
+            dockerfile: Dockerfile
+        image: bank-server:latest
+        ports:
+            - 8082:8082
+        depends_on:
+            postgres:
+              condition: service_healthy
+    postgres:
+        container_name: postgres
+        image: postgres:13.1-alpine
+        healthcheck:
+           test: ["CMD-SHELL", "pg_isready -U bankdb"]
+           interval: 10s
+           timeout: 5s
+           retries: 5
+        restart: always
+        environment:
+          - POSTGRES_USER=root
+          - POSTGRES_PASSWORD=password
+          - APP_DB_USER=bankdb
+          - APP_DB_PASS=123qwe
+          - APP_DB_NAME=bankdb
+        volumes:
+          - ./db:/docker-entrypoint-initdb.d/
+        ports:
+          - 5432:5432
+volumes:
+    pgdata:

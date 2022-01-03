@@ -25,14 +25,14 @@ public class AtmService {
 
     public String isReady(){
 
-        log.info("isReady()");
+        log.info("isReady");
 
         return "atm is up!";
     }
 
     public String insertCard(InsertCardDto insertCardDto){
 
-        log.info("insertCard()" + insertCardDto);
+        log.info("insertCard {}", insertCardDto);
 
         String card = insertCardDto.getCard();
 
@@ -45,7 +45,7 @@ public class AtmService {
 
     public String setAuthMethod(CardSetAuthMethodDto cardSetAuthMethodDto){
 
-        log.info("setAuthMethod()" + cardSetAuthMethodDto);
+        log.info("setAuthMethod {}", cardSetAuthMethodDto);
 
         String card = cardSetAuthMethodDto.getCard();
 
@@ -58,7 +58,7 @@ public class AtmService {
 
     public String authByPin(CardAuthByPinDto cardAuthByPinDto) {
 
-        log.info("authByPin()" + cardAuthByPinDto);
+        log.info("authByPin {}", cardAuthByPinDto);
 
         String card = cardAuthByPinDto.getCard();
 
@@ -87,7 +87,7 @@ public class AtmService {
 
     public String authByFingerPrint(CardAuthByFingerPrintDto cardAuthByFingerPrintDto) {
 
-        log.info("authByFingerPrint()" + cardAuthByFingerPrintDto);
+        log.info("authByFingerPrint {}", cardAuthByFingerPrintDto);
 
         String card = cardAuthByFingerPrintDto.getCard();
 
@@ -122,7 +122,7 @@ public class AtmService {
 
     public String balance(BalanceDto balanceDto){
 
-        log.info("balance()" + balanceDto);
+        log.info("balance {}", balanceDto);
 
         checkCardAuthenticated(balanceDto.getCard());
 
@@ -134,7 +134,7 @@ public class AtmService {
 
     public String withdraw(WithdrawDto withdrawDto){
 
-        log.info("withdraw()" + withdrawDto);
+        log.info("withdraw {}", withdrawDto);
 
         checkCardAuthenticated(withdrawDto.getCard());
 
@@ -145,7 +145,7 @@ public class AtmService {
 
     public String deposit(DepositDto depositDto){
 
-        log.info("deposit()" + depositDto);
+        log.info("deposit {}", depositDto);
 
         checkCardAuthenticated(depositDto.getCard());
 
@@ -157,7 +157,7 @@ public class AtmService {
 
     public String exit(CardExitDto cardExitDto){
 
-        log.info("exit()" + cardExitDto);
+        log.info("exit {}", cardExitDto);
 
         String card = cardExitDto.getCard();
 
@@ -170,7 +170,7 @@ public class AtmService {
 
     private void checkCardIsNotInSlot(String card){
 
-        log.info("_checkCardIsNotInSlot()" + card);
+        log.info("checkCardIsNotInSlot {}", card);
 
         if (session.containsKey(card)) {
             throw new RuntimeException("Given card is already in progress");
@@ -179,7 +179,7 @@ public class AtmService {
 
     private void checkCardValidated(String card){
 
-        log.info("_checkCardValidated()" + card);
+        log.info("checkCardValidated {}", card);
 
         if (!session.containsKey(card)) {
             throw new RuntimeException("Given card is not in progress");
@@ -188,7 +188,7 @@ public class AtmService {
 
     private void checkCardValidatedAndNotAuthenticated(String card){
 
-        log.info("_checkCardValidatedAndNotAuthenticated()" + card);
+        log.info("checkCardValidatedAndNotAuthenticated {}", card);
 
         if (!session.containsKey(card)) {
             throw new RuntimeException("Given card is not in progress");
@@ -203,7 +203,7 @@ public class AtmService {
 
     private void checkCardAuthenticated(String card){
 
-        log.info("_checkCardAuthenticated()" + card);
+        log.info("checkCardAuthenticated {}", card);
 
         if (!session.containsKey(card)) {
             throw new RuntimeException("Given card is not in progress");
@@ -218,28 +218,28 @@ public class AtmService {
 
     private void insertIntoSlot(String card){
 
-        log.info("_insertIntoSlot()" + card);
+        log.info("insertIntoSlot {}", card);
 
         session.put(card, new CardSessionItem(card, null, CardState.VALIDATED));
     }
 
     private void setAuthMethod(String card, AuthMethod authMethod){
 
-        log.info("_setAuthMethod()" + card + ";" + authMethod);
+        log.info("setAuthMethod card {}, authMethod {}", card, authMethod);
 
         session.get(card).setAuthMethod(authMethod);
     }
 
     private CardSessionItem getCardInSlot(String card){
 
-        log.info("_getCardInSlot()" + card);
+        log.info("getCardInSlot {}", card);
 
         return session.get(card);
     }
 
     private void exit(String card){
 
-        log.info("_exit()" + card);
+        log.info("exit {}", card);
 
         session.remove(card);;
     }

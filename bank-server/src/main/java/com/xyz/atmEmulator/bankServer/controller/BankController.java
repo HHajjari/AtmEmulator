@@ -34,7 +34,7 @@ public class BankController {
         if(LocalDateTime.now().getSecond()%2==0)
             throw new RuntimeException("server is unavailabel");
 
-        log.info("isReady()");
+        log.info("isReady");
 
         return ResponseEntity.ok("bank service is up!");
     }
@@ -42,7 +42,7 @@ public class BankController {
     @PostMapping("/authenticateByPIN")
     public ResponseEntity<Integer> authenticateByPIN(@RequestBody CardAuthByPinDto cardAuthByPinDto) {
 
-        log.info("authByPin()" + cardAuthByPinDto);
+        log.info("authByPin {}", cardAuthByPinDto);
 
         return ResponseEntity.ok(cardService.authenticateByPIN(cardAuthByPinDto));
     }
@@ -50,7 +50,7 @@ public class BankController {
     @PostMapping("/authByFingerPrint")
     public ResponseEntity<Integer> authByFingerPrint(@RequestBody CardAuthByFingerPrintDto cardAuthByFingerPrintDto) {
 
-        log.info("authByFingerPrint()" + cardAuthByFingerPrintDto);
+        log.info("authByFingerPrint {}", cardAuthByFingerPrintDto);
 
         return ResponseEntity.ok(cardService.authenticateByFingerPrint(cardAuthByFingerPrintDto));
     }
@@ -58,7 +58,7 @@ public class BankController {
     @GetMapping("/balance")
     public ResponseEntity<BigDecimal> balance(String cardNumber){
 
-        log.info("balance()" + cardNumber);
+        log.info("balance", cardNumber);
 
         return ResponseEntity.ok(cardService.getBalance(cardNumber));
     }
@@ -66,7 +66,7 @@ public class BankController {
     @PostMapping("/withdraw")
     public ResponseEntity<Boolean> withdraw(@RequestBody WithdrawDto withdrawDto){
 
-        log.info("withdraw()" + withdrawDto);
+        log.info("withdraw {}", withdrawDto);
 
         return ResponseEntity.ok(cardService.withdraw(withdrawDto));
     }
@@ -74,7 +74,7 @@ public class BankController {
     @PostMapping("/deposit")
     public ResponseEntity<Boolean> deposit(@RequestBody DepositDto depositDto){
 
-        log.info("deposit()" + depositDto);
+        log.info("deposit {}", depositDto);
 
         return ResponseEntity.ok(cardService.deposit(depositDto));
     }

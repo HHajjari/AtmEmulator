@@ -44,7 +44,7 @@ public class CardService {
     @Retry(name = "bankServerIsReady")
     public String bankServerIsReady(){
 
-        log.info("bankServerIdReady()");
+        log.info("bankServerIdReady");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -62,7 +62,7 @@ public class CardService {
     @Retry(name = "authenticateByPIN")
     public Integer authenticateByPIN(CardAuthByPinDto cardAuthByPinDto){
 
-        log.info("authenticateByPIN()" + cardAuthByPinDto);
+        log.info("authenticateByPIN {}", cardAuthByPinDto);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -80,7 +80,7 @@ public class CardService {
     @Retry(name = "authenticateByFingerPrint")
     public Integer authenticateByFingerPrint(CardAuthByFingerPrintDto cardAuthByFingerPrintDto){
 
-        log.info("authenticateByFingerPrint()" + cardAuthByFingerPrintDto);
+        log.info("authenticateByFingerPrint {}", cardAuthByFingerPrintDto);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -98,7 +98,7 @@ public class CardService {
     @Retry(name = "deposit")
     public Boolean deposit(DepositDto depositDto){
 
-        log.info("deposit()" + depositDto);
+        log.info("deposit {}", depositDto);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -116,7 +116,7 @@ public class CardService {
     @Retry(name = "withdraw")
     public Boolean withdraw(WithdrawDto withdrawDto){
 
-        log.info("withdraw()" + withdrawDto);
+        log.info("withdraw {}", withdrawDto);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -134,7 +134,7 @@ public class CardService {
     @Retry(name = "getBalance")
     public BigDecimal getBalance(String cardNumber){
 
-        log.info("getBalance()" + cardNumber);
+        log.info("getBalance {}", cardNumber);
 
         RestTemplate restTemplate = new RestTemplate();
 

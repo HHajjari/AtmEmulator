@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Service
@@ -27,7 +28,7 @@ public class CardService {
 
     public BigDecimal getBalance(String cardNumber){
 
-        log.info("getBalance()" + cardNumber);
+        log.info("getBalance {}", cardNumber);
 
         Card card = cardRepository.findByCardNumber(cardNumber);
 
@@ -36,9 +37,10 @@ public class CardService {
         return card.getBalance();
     }
 
+    @Transactional
     public Integer authenticateByPIN(CardAuthByPinDto cardAuthByPinDto){
 
-        log.info("authenticateByPIN()" + cardAuthByPinDto);
+        log.info("authenticateByPIN {}", cardAuthByPinDto);
 
         Card card = cardRepository.findByCardNumber(cardAuthByPinDto.getCard());
 
@@ -67,9 +69,10 @@ public class CardService {
         return card.getInvalidAuthAttemptCount();
     }
 
+    @Transactional
     public Integer authenticateByFingerPrint(CardAuthByFingerPrintDto cardAuthByFingerPrintDto){
 
-        log.info("authenticateByFingerPrint()" + cardAuthByFingerPrintDto);
+        log.info("authenticateByFingerPrint {}", cardAuthByFingerPrintDto);
 
         Card card = cardRepository.findByCardNumber(cardAuthByFingerPrintDto.getCard());
 
@@ -97,9 +100,10 @@ public class CardService {
         return card.getInvalidAuthAttemptCount();
     }
 
+    @Transactional
     public Boolean deposit(DepositDto depositDto){
 
-        log.info("deposit()" + depositDto);
+        log.info("deposit {}", depositDto);
 
         checkAmount(depositDto.getValue());
 
@@ -114,9 +118,10 @@ public class CardService {
         return true;
     }
 
+    @Transactional
     public Boolean withdraw(WithdrawDto withdrawDto){
 
-        log.info("withdraw()" + withdrawDto);
+        log.info("withdraw {}", withdrawDto);
 
         checkAmount(withdrawDto.getValue());
 
@@ -135,7 +140,7 @@ public class CardService {
 
     private void checkCardIsActive(Card card){
 
-        log.info("checkCardIsActive()" + card);
+        log.info("checkCardIsActive {}", card);
 
         if(card == null){
             throw new RuntimeException("The requested card does not exist.");
@@ -148,7 +153,7 @@ public class CardService {
 
     private void checkAmount(BigDecimal amount){
 
-        log.info("checkAmount()" + amount);
+        log.info("checkAmount {}", amount);
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0)
             throw new RuntimeException("The amount should be positive.");
@@ -156,7 +161,7 @@ public class CardService {
 
     private void checkWithdrawIsValid(Card card, BigDecimal amount){
 
-        log.info("checkWithdrawIsValid()" + card + ";" + amount);
+        log.info("checkWithdrawIsValid card {} amount {}", card, amount);
 
         if(card.getBalance().compareTo(amount)  == -1){
             throw new RuntimeException("The requested amount is greater than current balance.");

@@ -31,7 +31,7 @@ public class AtmController {
     @GetMapping("/isready")
     public ResponseEntity<String> isReady(){
 
-        log.info("isReady()");
+        log.info("isReady");
 
         String atmIsReady = atmService.isReady();
         String bankIsReady = cardService.bankServerIsReady();
@@ -42,7 +42,7 @@ public class AtmController {
     @PostMapping("/insertCard")
     public ResponseEntity<String> insertCard(@Valid @RequestBody InsertCardDto insertCardDto){
 
-        log.info("insertCard()" + insertCardDto);
+        log.info("insertCard {}", insertCardDto);
 
         return ResponseEntity.ok(atmService.insertCard(insertCardDto));
     }
@@ -50,7 +50,7 @@ public class AtmController {
     @PostMapping("/setAuthMethod")
     public ResponseEntity<String> setAuthMethod(@Valid @RequestBody CardSetAuthMethodDto cardSetAuthMethodDto){
 
-        log.info("setAuthMethod()" + cardSetAuthMethodDto);
+        log.info("setAuthMethod {}", cardSetAuthMethodDto);
 
         return ResponseEntity.ok(atmService.setAuthMethod(cardSetAuthMethodDto));
     }
@@ -58,7 +58,7 @@ public class AtmController {
     @PostMapping("/authByPIN")
     public ResponseEntity<String> authByPin(@Valid @RequestBody CardAuthByPinDto cardAuthByPinDto) {
 
-        log.info("authByPin()" + cardAuthByPinDto);
+        log.info("authByPin {}", cardAuthByPinDto);
 
         return ResponseEntity.ok(atmService.authByPin(cardAuthByPinDto));
     }
@@ -66,7 +66,7 @@ public class AtmController {
     @PostMapping("/authByFingerPrint")
     public ResponseEntity<String> authByFingerPrint(@Valid @RequestBody CardAuthByFingerPrintDto cardAuthByFingerPrintDto) {
 
-        log.info("authByFingerPrint()" + cardAuthByFingerPrintDto);
+        log.info("authByFingerPrint {}", cardAuthByFingerPrintDto);
 
         return ResponseEntity.ok(atmService.authByFingerPrint(cardAuthByFingerPrintDto));
     }
@@ -74,7 +74,7 @@ public class AtmController {
     @GetMapping("/balance")
     public ResponseEntity<String> balance(@Valid BalanceDto balanceDto){
 
-        log.info("balance()" + balanceDto);
+        log.info("balance {}", balanceDto);
 
         return ResponseEntity.ok(atmService.balance(balanceDto));
     }
@@ -82,7 +82,7 @@ public class AtmController {
     @PostMapping("/withdraw")
     public ResponseEntity<String> withdraw(@Valid @RequestBody WithdrawDto withdrawDto){
 
-        log.info("withdraw()" + withdrawDto);
+        log.info("withdraw {}", withdrawDto);
 
         return ResponseEntity.ok(atmService.withdraw(withdrawDto));
     }
@@ -90,7 +90,7 @@ public class AtmController {
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@Valid @RequestBody DepositDto depositDto){
 
-        log.info("deposit()" + depositDto);
+        log.info("deposit {}", depositDto);
 
         return ResponseEntity.ok(atmService.deposit(depositDto));
     }
@@ -98,7 +98,7 @@ public class AtmController {
     @PostMapping("/exit")
     public ResponseEntity<String> exit(@Valid @RequestBody CardExitDto cardExitDto){
 
-        log.info("exit()" + cardExitDto);
+        log.info("exit {}", cardExitDto);
 
         return ResponseEntity.ok(atmService.exit(cardExitDto));
     }
